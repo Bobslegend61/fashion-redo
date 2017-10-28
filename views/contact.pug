@@ -1,0 +1,24 @@
+extends layout
+block content
+    #contact-form.container
+        form(action="#", method="post", role="contact")
+            fieldset
+                legend Send Us A Mail
+                .form-group
+                    .label 
+                        label(for="name") Name:
+                    .field
+                        input(type="text", name="name", id="name", required)
+                .form-group
+                    .label
+                        label(for="email") Email:
+                    .field
+                        input(type="email", name="email", id="email", required)
+                .form-group
+                    .label
+                        label(for="message") Message:
+                    .field
+                        textarea(name="message", cols="30", rows="10", id="message", required)
+                button(type="submit") Send
+                    i.fa.fa-send
+                

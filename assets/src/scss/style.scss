@@ -1,0 +1,513 @@
+@import "mixins";
+@import "general";
+
+////////// MOBILE NAVBR ---START--- //////////
+#mobile-nav {
+    @extend .md-none;
+    @extend .lg-none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-bottom: 30px;
+    height: 1380px;
+    background-color: $primaryColor;
+    color: #fff;
+    z-index: 1;
+    @include animation("mobile");
+    #brand-name {
+        @extend .col-sm-8;
+        text-transform: uppercase;
+        padding: 12px 5px 10px 5px;
+        font-size: 1.5em;
+        font-weight: 800;
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+    #mobile-search {
+        text-align: center;
+        margin: 5px 0px;
+        input {
+            width: 90%;
+            height: 30px;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    }
+    .search-icon {
+        @extend .col-sm-2;
+        text-align: center;
+        padding: 15px 5px;
+        i {
+            float: right;
+            font-size: 20px;
+        }
+    }
+    #menu-items {
+        @extend .col-sm-12;
+        padding: 15px 10px;
+        .nav-item > p {
+            @extend .text-center;
+        }
+        p {
+            padding: 6px 0px;
+            text-transform: uppercase;
+        }
+        p a {
+            font-weight: 600;
+            pointer-events: none;
+        }
+        ul {
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        li {
+            padding: 9px 0px;
+        }
+        .collaspe {
+            display: none;
+        }
+        .collaspe a {
+            position: relative;
+        }
+        .sub-topic {
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+        .items {
+            left: 50px;
+            font-weight: 400;
+            font-size: 0.9em;
+            list-style: circle;
+        }
+    }
+}
+
+////////// LAYOUT NAVBAR ---- START ---- /////////
+
+#layout-nav {
+    @extend #mobile-nav;
+    height: auto;
+    padding-bottom: 0;
+    // position: fixed;
+    .bars {
+        @extend .col-sm-2;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        padding: 14px 15px;
+        i {
+            font-size: 25px;
+        }
+    }
+    #menu-items {
+        display: none; 
+    }
+}
+
+////////// LAYOUT NAVBAR ---- END ---- /////////
+
+
+////////// MOBILE NAVBR ---END--- //////////
+
+///////// LARGE NAVBAR ---- START ---- ////////
+
+#desktop-nav {
+    @extend .row;
+    @extend .sm-none;
+    // position: fixed;
+    @include boxSizing;
+    padding: 10px 10px;
+    background-color: $primaryColor;
+    #desktop-search {
+        @extend .col-md-3;
+        @extend .col-lg-3;
+        text-align: center;
+        input {
+            height: 30px;
+            background-color: lighten($primaryColor, 40%);
+            width: 90%;
+            padding: 10px;
+            border: 1px solid lighten($primaryColor, 40%);
+            border-radius: 3px;
+            outline: none;
+            @include tablet {
+                width: 100%;
+            }
+            &:focus {
+                background-color: #fff;
+                border-color: $primaryColor!important;
+            }
+        }
+    }
+    #brand-name {
+        @extend .col-md-2;
+        @extend .col-lg-2;
+        color: #fff;
+        text-align: right;
+        text-transform: uppercase;
+        font-size: 1.2em;
+        font-weight: 800;
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+    #desktop-item-menu {
+        @extend .col-md-7;
+        @extend .col-lg-7;
+        .desktop-navbar-nav {
+            text-align: right;
+        }
+        .desktop-nav-item {
+            display: inline-block;
+            padding: 0 10px;
+            position: relative;
+            font-size: .9em;
+            li {
+                list-style: none;
+            }
+            & > a {
+                text-transform: uppercase;
+                color: #fff;
+                text-decoration: none;
+                position: relative;
+            }
+            & > a::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: 0px;
+                left: 0;
+                background-color: #fff;
+                visibility: hidden;
+                -webkit-transform: scaleX(0);
+                transform: scaleX(0);
+                -webkit-transition: all 0.3s ease-in-out 0s;
+                transition: all 0.3s ease-in-out 0s;
+            }
+            & > a:hover::before {
+                visibility: visible;
+                -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+            }
+            & > a:hover + .options, .options:hover {
+                display: block;
+            }
+            .options {
+                @extend .row;
+                display: none;
+                position: absolute;
+                right: 0;
+                width: 300px;
+                background-color: #fff;
+                text-align: left;
+                border-radius: 3px;
+                box-shadow: 0px 0px 5px lighten($primaryColor, 40%);
+                @include transition("display");
+                padding: 10px 0;
+
+                div {
+                    @extend .col-md-6;
+                    @extend .col-lg-6;
+                    @extend .col-lg-6;
+                    @extend .col-md-6;
+                    padding: 0 10px;
+                }
+                a {
+                    color: $primaryColor;
+                    text-transform: uppercase;
+                }
+                h6 a {
+                    pointer-events: none;
+                    font-size: 1.1em;
+                    text-decoration: none;
+                }
+                h6 {
+                    border-bottom: 1px solid $primaryColor;
+                }
+                li a {
+                    font-size: 0.7em;
+                    text-decoration: none;
+                }
+                li a:hover {
+                    color: rgb(218, 15, 15);
+                }
+            }
+        }
+    }
+}
+
+// HOMPAGE--- little changes
+#homepage  #desktop-nav {
+    background-color: transparent;
+    transition-property: background-color;
+    transition-duration: 800ms;
+    transition-timing-function: ease-in-out;
+   
+    #desktop-search input, #brand-name {
+        opacity: 0;
+        transition-property: opacity;
+        transition-duration: 800ms;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+//////// LARGE NAVBAR ---- END ----- /////////
+
+///////// HOMEPAGE ---- START ---- //////////
+
+//LANDING PAGE
+#landing-page {
+    height: 60vh;
+    .bars {
+        @extend .col-sm-2;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        padding: 14px 15px;
+        i {
+            font-size: 25px;
+        }
+    }
+}
+
+// LANDING PAGE CONTENT
+#landing-page-content {
+    text-align: center;
+    padding: 60px 0;
+    header {
+        color: #fff;
+        h2 {
+            font-size: 3em;
+            @include mobile {
+                font-size: 2em;
+            }
+        }
+    }
+    
+    input {
+        width: 50%;
+        outline: none;
+        border-radius: 3px;
+        border: 1px solid lighten($primaryColor, 40%);;
+        height: 50px;
+        padding: 10px 15px;
+        font-size: 1.2em;
+        font-weight: 100;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: lighten($primaryColor, 40%);
+        @include mobile {
+            width: 80%;
+            font-size: .9em;
+            height: 30px;
+        }
+    }
+}
+
+///////// HOMEPAGE ---- END ---- //////////
+
+///////// LAYOUTPAGE ---- START ---- //////////
+// #layout-page {
+//     #layout-nav {
+//         height: 1380px
+//     }
+// }
+///////// LAYOUTPAGE ---- END ---- //////////
+
+///////// PAGES ---- START ---- /////////
+    // general
+    #all-page, #about-us, #policypage, #terms-and-condition, #contact-form {
+        @include mobile {
+            margin-top: 60px;
+        }
+    }
+
+    // // allpage
+    // #all-page{
+
+    // }
+    // aboutpage
+    #about-us {
+        @extend .container;
+        padding: 0 0 30px 0;
+        .about {
+            @extend .row;
+            .pix {
+                @extend .col-sm-12;
+                @extend .col-md-4;
+                @extend .col-lg-4;
+                padding: 5px 15px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .summary {
+                @extend .col-sm-12;
+                @extend .col-md-8;
+                @extend .col-lg-8;
+                h5 {
+                    font-weight: 700;
+                }
+            }
+        }
+        .values {
+            @extend .row;
+            @include boxSizing;
+            background-color: lighten(goldenrod, 40%);
+            padding: 10px;
+            h2 {
+                font-weight: 200;
+            }
+            .v1 {
+                @extend .col-sm-12;
+                @extend .col-md-7;
+                @extend .col-lg-7;
+            }
+            .v2 {
+                @extend .col-sm-12;
+                @extend .col-md-5;
+                @extend .col-lg-5;
+                padding: 10px 15px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    // contact form
+    #contact-form {
+        @include tablet {
+            margin: 20px auto;
+        }
+        @include desktop {
+            margin: 20px auto;
+        }
+        fieldset {
+            padding: 15px 25px;
+            background-color: lighten(goldenrod, 40%);
+        }
+        .form-group {
+            @extend .row;
+            margin: 10px 0;
+            input {
+                width: 100%;
+                padding: 5px;
+                border-radius: 3px;
+                border: 1px solid $primaryColor;
+                @include mobile {
+                    height: 25px;
+                }
+                @include tablet {
+                    height: 30px;
+                }
+                @include desktop {
+                    height: 30px;
+                }
+            }
+
+            textarea {
+                width: 100%;
+                border-radius: 3px;
+                padding: 5px;
+            }
+        }
+        .label {
+            @extend .col-sm-12;
+            @extend .col-md-2;
+            @extend .col-lg-2;
+        }
+        .field {
+            @extend .col-sm-12;
+            @extend .col-md-10;
+            @extend .col-lg-10;
+        }
+        button {
+            padding: 5px 10px;
+            border: 1px solid lighten($primaryColor, 40%);
+            background-color: #fff;
+            border-radius: 3px;
+            float: right;
+        }
+        button:hover {
+            box-shadow: 0px 0px 5px lighten($primaryColor, 40%);
+        }
+    }
+///////// PAGES ---- END ---- /////////
+
+///////// FOOTER ----START-----////////
+#footer {
+    @extend .row;
+    background-color: $primaryColor;
+    color: #fff;
+    padding: 10px 0;
+    @include boxSizing;
+    @include tablet {
+        text-align: center;
+    }
+    @include desktop {
+        text-align: center;
+    }
+    #footer-content {
+        @extend .row;
+        #get-to-know-us, #bestsellers, #popular-tags, #latest-tweets {
+            @extend .col-sm-12;
+            @extend .col-md-3;
+            @extend .col-lg-3;
+            padding: 0 0 0 10px;
+        }
+        h5 {
+            text-transform: uppercase;
+        }
+        ul {
+            text-align: left;
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.8em;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: lightskyblue;
+        }
+        p {
+            font-size: 0.8em;
+        }
+    }
+}
+#logo {
+    text-align: center;
+    background-color: $primaryColor;
+    span {
+        color: #fff;
+    }
+    i {
+        background-color: lighten($primaryColor, 40%);
+        margin: 10px;
+        padding: 6px;
+        border-radius: 48%;
+        color: darken($primaryColor, 10%);
+    }
+}
+#copyright {
+    @extend .row;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0;
+    font-size: .8em;
+    background-color: darken($primaryColor, 8%);
+}
+//////// FOOTER ---- END ---- ////////
