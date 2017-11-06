@@ -1,0 +1,14 @@
+extends layout
+block content
+    #product.container
+        .product-details
+            .images
+                .row
+                    .col-sm-12.col-md-12.col-lg-12.text-center
+                        img.main-display(src=product.displayPixLink, alt="image", style="height:500px; width:329.266px;")
+                    .col-sm-12.col-md-12.col-lg-12
+                        .product-display
+                            each item in product.showCaseLink
+                                .image.text-center
+                                    img(src=item, alt=item, style="height:95%; width:100%;")
+            .info

@@ -24,6 +24,7 @@ app.use("/", route);
 app.use("/api", apiRoute);
 // SET STATIC FOLDER
 app.use(express.static(path.join(__dirname, "assets")));
+app.use("/product", express.static(path.join(__dirname, "assets")));
 // DEFINE ERROR OR UNKNOWN ROUTE
 app.get("*", (req, res) => {
     res.render("errorpage");
