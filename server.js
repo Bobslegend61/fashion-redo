@@ -11,7 +11,7 @@ const apiRoute = require("./routes/apiRoutes");
 const app = express();
 
 // DEFINE PORT
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3004;
 
 // SET ENGINE
 app.set("view engine", "pug");
@@ -25,6 +25,7 @@ app.use("/api", apiRoute);
 // SET STATIC FOLDER
 app.use(express.static(path.join(__dirname, "assets")));
 app.use("/product", express.static(path.join(__dirname, "assets")));
+app.use("/product-category", express.static(path.join(__dirname, "assets")));
 // DEFINE ERROR OR UNKNOWN ROUTE
 app.get("*", (req, res) => {
     res.render("errorpage");

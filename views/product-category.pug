@@ -1,0 +1,44 @@
+extends layout
+block content
+    #product-category.container
+        .category-details
+            header
+                h2 #{pageTitle}
+            .links
+                each item in product
+                    span 
+                        strong
+                            a(href="?productname="+item.type) #{item.type} &nbsp;
+                span
+                    strong
+                        a(href="#") New This Week &nbsp;
+                span
+                    strong
+                        a(href="#") Our Exclusives &nbsp;
+                span
+                    strong
+                        a(href="#") Bestsellers &nbsp;
+            .category-area
+                .select-size-and-color
+                    .form-field
+                        label Color
+                        select(name="categoryColor")
+                            each item in product
+                                each color in item.color
+                                    option(value=color) #{color}
+                    .form-field
+                        label Size
+                        select(name="categorySize")
+                           each item in product
+                                each size in item.sizes
+                                    option(value=size) #{size}
+                .display-area
+                   .display
+                        each item in product
+                            a(href="/product/"+item.brandName)
+                                .item-box
+                                    .image
+                                        img(src=item.displayPixLink, alt=item.brandName)
+                                    .info
+                                        p 
+                                            strong #{item.brandName}

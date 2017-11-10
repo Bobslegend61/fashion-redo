@@ -1,4 +1,8 @@
 // GENERAL STYLING
+
+// import google font
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
 // primry color
 $primaryColor: #404041;
 
@@ -11,7 +15,7 @@ $primaryColor: #404041;
 // body styling
 body {
     font: {
-        family: cursive;
+        family: 'PT Sans', sans-serif;;
         size: 16px;
         weight: 300;
     };

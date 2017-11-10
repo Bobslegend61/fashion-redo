@@ -146,7 +146,7 @@ section#homepage
         #slider
             each brand in data
                 .image
-                    a(href="/product/"+brand.type.replace(/ /g,"-"))
+                    a(href="/product/"+brand.brandName.replace(/ /g,"-"))
                         img(src=brand.displayPixLink, alt=brand.brandName+" "+brand.type)
                         p=brand.brandName+" "+brand.type+"-"+brand.color
                         .price

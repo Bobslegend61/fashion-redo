@@ -48,6 +48,8 @@ $(document).ready(function() {
         infinite: false,
         slidesToShow: 4,
         slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
         cssEase: "ease-in-out",
         responsive: [
             {

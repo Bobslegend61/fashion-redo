@@ -12,3 +12,32 @@ block content
                                 .image.text-center
                                     img(src=item, alt=item, style="height:95%; width:100%;")
             .info
+                .name
+                    header
+                        h2 
+                            strong #{product.brandName}
+                    h3 &#x20A6; #{product.price}
+                    p In stock: #{product.inStock}
+                hr
+                .details
+                    p #{product.details}
+                hr
+                .color-and-size
+                    .form-field
+                        label Color
+                        select(name="productColor")
+                            each color, index in product.color
+                                option(value=color) #{color}
+                    .form-field
+                        label Size
+                        select(name="productSize")
+                            each size in product.sizes
+                                option(value=color) #{size}
+                hr
+                .description
+                    header
+                        h4 #{product.brandName}
+                    ul
+                        each item in product.description
+                            li #{item}
+                    
