@@ -377,9 +377,9 @@
 
 ///////// PAGES ---- START ---- /////////
     // general
-    #all-page, #about-us, #policypage, #terms-and-condition, #contact-form, #product, #product-category {
+    #all-page, #about-us, #policypage, #terms-and-condition, #contact-form, #product, .product-category, #cart-display {
         @include mobile {
-            margin-top: 60px;
+            margin-top: 70px;
         }
     }
 
@@ -554,11 +554,38 @@
                     text-transform: uppercase;
                 }
             }
+            .add-to-cart {
+                input[type=number] {
+                    height: 20px;
+                    border-radius: 3px;
+                    margin: 5px;
+                    padding: 5px 5px;
+                    outline: none;
+                    border: none;
+                    box-shadow: 0 0 3px lighten($primaryColor, 50%);
+                    width: 80px;
+                }
+                button {
+                    padding: 8px 10px;
+                    margin: 5px;
+                    border: none;
+                    border-radius: 3px;
+                    box-shadow: 0 0 3px lighten($primaryColor, 50%);
+                    text-transform: uppercase;
+                    color: #fff;
+                    background-color: lighten($primaryColor, 50%);
+                    outline: none;
+                    &:hover {
+                        box-shadow: 0 7px 5px -7px lighten($primaryColor, 30%);
+                    }
+                }
+            }
         }
     }
     
     // product-category
-    #product-category {
+    .product-category {
+        padding-top: 10px;
         header {
             @extend .text-center;
             text-transform: uppercase;
@@ -566,7 +593,7 @@
         .links {
             text-transform: capitalize;
             @extend .text-center;
-            a{
+            a {
                 text-decoration: none;
                 color: inherit;
             }
@@ -625,6 +652,101 @@
                         @extend .text-center;
                     }
                 }
+            }
+        }
+    }
+
+    #cart-display {
+        header {
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .cart-body {
+            margin-bottom: 10px;
+        }
+        .delivery-time-info {
+            padding: 10px;
+            font-size: .9em;
+            background-color: lighten(blue, 45%);
+            border-top: 3px solid darken(blue, 20%);
+            i {
+                color: darken(blue, 20%);
+            }
+            margin-bottom: 10px;
+        }
+        .no-item-error {
+            @extend .delivery-time-info;
+            background-color: lighten(red, 45%);
+            border-top: 3px solid darken(red, 20%);
+            margin-bottom: 300px;
+            i {
+                color: darken(red, 20%);
+            }
+        }
+        .cart-product-info {
+            & > div {
+                box-shadow: 0 1px 3px lighten($primaryColor, 45%);
+                margin-bottom: 5px;
+                @include boxSizing;
+                padding-right: 4px;
+                @include mobile {
+                    padding-bottom: 4px;
+                }
+            }
+            img {
+                width: 50%;
+                height: 50%;
+            }
+            button {
+                @include boxSizing;
+                border: none;
+                padding: 5px 10px;
+                background-color: darken(red, 10%);
+                border-radius: 3px;
+                color: #fff;
+                &:hover {
+                    border: 1px solid $primaryColor;
+                    box-shadow: 0 5px 3px -5px $primaryColor;
+                }
+            }
+        }
+        .cart-product-total-info {
+            @extend .row;
+            color: #fff;
+            margin: 15px 0;
+            & > div {
+                @extend .col-sm-12;
+                @extend .col-md-4;
+                @extend .col-lg-4;
+                background-color: darken($primaryColor, 2%);
+                padding: 15px 10px;
+
+                a {
+                    display: block;
+                    text-align: center;
+                    @include boxSizing;
+                    padding: 15px 10px;
+                    background-color: darken($primaryColor, 20%);
+                    text-decoration: none;
+                    color: #fff;
+                    margin-top: 10px;
+                    text-transform: uppercase;
+                    font-weight: 800;
+                    font-size: .9em;
+                    &:hover {
+                        background-color: darken($primaryColor, 10%);
+                    }
+                }
+            }
+            hr {
+                background-color: lightgrey;
+            }
+            p span {
+                float: right;
+            }
+            p.grand-total {
+                font-size: 1.5em;
+                text-transform: uppercase;
             }
         }
     }

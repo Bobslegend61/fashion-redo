@@ -160,9 +160,7 @@ const router = express.Router();
             let name = req.params.name.replace(/-/g, " ");
             let product = data.filter((value) => {
                 return value.brandName == name
-            });
-            console.log(product);
-            // res.json({pageTitle: name, product: product[0]});
+            }); 
             res.render("product", {pageTitle: name, product: product[0]});
         });
 
@@ -181,6 +179,11 @@ const router = express.Router();
                 });
                 res.render("product-category", {pageTitle: category, product: product})
             }
+        })
+
+        // cart
+        router.get("/cart", (req, res) => {
+            res.render("cart-display", {pageTitle: "Shopping Cart"});
         })
     // GET ROUTES --- ****END****
 

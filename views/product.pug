@@ -1,6 +1,15 @@
 extends layout
 block content
     #product.container
+        .breadcrumb
+            ul
+                li
+                    a(href="/") Home
+                li
+                    a(href="/product-category/"+product.category) #{product.category}
+                li
+                    p #{product.brandName}
+        include cart.pug
         .product-details
             .images
                 .row
@@ -16,7 +25,8 @@ block content
                     header
                         h2 
                             strong #{product.brandName}
-                    h3 &#x20A6; #{product.price}
+                    h3 &#x20A6; 
+                        span #{product.price}
                     p In stock: #{product.inStock}
                 hr
                 .details
@@ -40,4 +50,11 @@ block content
                     ul
                         each item in product.description
                             li #{item}
+            .add-to-cart
+                #error
+                    div
+                .form-field
+                    input(type="number", name="addToCartNum", value=1)
+                    button(type="button") 
+                        i.fa.fa-shopping-cart  Add To Cart
                     
