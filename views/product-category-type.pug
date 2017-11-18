@@ -1,11 +1,23 @@
 extends layout
 block content
     .product-category.container
+        .breadcrumb(style=product.length > 0 ? "display: block;" : "display: none;")
+            ul
+                li
+                    a(href="/") Home
+                li
+                    a(href=`/product-category/${product.length > 0 ? product[0].category : ""}`) #{product.length > 0 ? product[0].category : ""}
+                li
+                    p #{pageTitle}
         include cart.pug
         .category-details
             header
                 h2 #{pageTitle}
-            .category-area
+            .no-item(style=product.length == 0 ? "display: block;" : "display: none;")
+                p   
+                    i.fa.fa-info
+                    span &nbsp;No product avaliable for #{pageTitle}
+            .category-area(style=product.length > 0 ? "display: block;" : "display: none;")
                 .select-size-and-color
                     .form-field
                         label Color

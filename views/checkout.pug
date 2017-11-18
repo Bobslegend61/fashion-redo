@@ -1,0 +1,119 @@
+extends layout
+block content
+    #checkout.container
+        header
+            h3 Checkout
+        .breadcrumb
+            ul
+                li
+                    a(href="/") Home
+                li
+                    p   Checkout
+        .checkout-body
+            .delivery-time-info
+                p   
+                    i.fa.fa-calendar-o
+                    span &nbsp;Delivery Timelines: Lagos is 3-5 working days. Other States, 5-8 working days
+            .checkout-shipping-info
+                p   
+                    i.fa.fa-info
+                    span &nbsp;There are no shipping methods available. Please double check your address, or contact us if you need any help.
+            .billing-and-order-details
+                .billing-details
+                    form(action="/gg", method="get")
+                        fieldset
+                            legend BILLING DETAILS
+                            .row
+                                .inputfield.col-sm-6.col-md-6.col-lg-6
+                                    label(for="firstname") First name
+                                        span *
+                                    input(type="text", name="firstname", id="firstname") 
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-6.col-md-6.col-lg-6
+                                    label(for="lastname") Last name
+                                        span *
+                                    input(type="text", name="lastname", id="lastname")
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-12.col-md-12.col-lg-12
+                                    label(for="companyname") Company name
+                                    input(type="text", name="companyname", id="companyname")
+                                .inputfield.col-sm-12.col-md-12.col-lg-12
+                                    label(for="country") Country
+                                        span *
+                                    select(name="country")
+                                        each country in countries
+                                            option(value=country, selected= country == "Nigeria") #{country}
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-12.col-md-12.col-lg-12
+                                    label(for="streetaddress") Street Address
+                                        span *
+                                    input(type="text", name="streetaddress", id="streetaddress", placeholder="House number and street name")
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-12.col-md-12.col-lg-12
+                                    label(for="town/city") Town/City
+                                        span *
+                                    input(type="text", name="town_city", id="town/city")
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-12.col-md-12.col-lg-12
+                                    label(for="state") State
+                                        span *
+                                    select(name="state")
+                                        option(value="Lagos") Lagos
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-12.col-md-12.col-lg-12
+                                    label(for="postal") Postalcode / ZIP
+                                    input(type="text", name="postal", id="postal")
+                                .inputfield.col-sm-6.col-md-6.col-lg-6
+                                    label(for="phonenumber") Phone
+                                        span *
+                                    input(type="number", name="phonenumber", id="phonenumber") 
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                                .inputfield.col-sm-6.col-md-6.col-lg-6
+                                    label(for="email") Email
+                                        span *
+                                    input(type="email", name="email", id="email")
+                                    .no-item-error
+                                        p   
+                                            i.fa.fa-exclamation-circle
+                                            span
+                .order-details
+                    fieldset
+                        legend YOUR ORDER
+                        .order-details-box
+                            table
+                                thead
+                                    tr
+                                        th Product(s)
+                                        th Total
+                                tbody
+                            .inputfield
+                                input(type="checkbox", value="agreed" id="terms", name="terms")
+                                span  I've read and accept the 
+                                    a(href="/terms-and-condition") terms and conditions
+                                span(style="color: red;") *
+                                .no-item-error
+                                    p   
+                                        i.fa.fa-exclamation-circle
+                                        span
+                        button(type="button") Place Order

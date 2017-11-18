@@ -377,7 +377,7 @@
 
 ///////// PAGES ---- START ---- /////////
     // general
-    #all-page, #about-us, #policypage, #terms-and-condition, #contact-form, #product, .product-category, #cart-display {
+    #all-page, #about-us, #policypage, #terms-and-condition, #contact-form, #product, .product-category, #cart-display, #checkout, #all-page {
         @include mobile {
             margin-top: 70px;
         }
@@ -590,6 +590,17 @@
             @extend .text-center;
             text-transform: uppercase;
         }
+        .no-item {
+            margin: 30px 0 30% 0;
+            padding: 10px;
+            font-size: .9em;
+            display: none;
+            background-color: lighten(aqua, 45%);
+            border-top: 3px solid darken(aqua, 20%);
+            i {
+                color: darken(aqua, 20%);
+            }
+        }
         .links {
             text-transform: capitalize;
             @extend .text-center;
@@ -625,6 +636,8 @@
                 @extend .col-lg-9;
                 .display {
                     @extend .row;
+                    @include boxSizing;
+                    padding: 20px;
                     a {
                         color: inherit;
                     }
@@ -662,7 +675,7 @@
             text-align: center;
         }
         .cart-body {
-            margin-bottom: 10px;
+            margin-bottom: 100px;
         }
         .delivery-time-info {
             padding: 10px;
@@ -678,9 +691,27 @@
             @extend .delivery-time-info;
             background-color: lighten(red, 45%);
             border-top: 3px solid darken(red, 20%);
-            margin-bottom: 300px;
+            margin-bottom: 30px;
             i {
                 color: darken(red, 20%);
+            }
+        }
+        .return-to-shop {
+            font-size: .8em;
+            a {
+                text-decoration: none;
+                color: inherit;
+                border: none;
+                border-radius: 3px;
+                padding: 5px 10px;
+                box-shadow: 0 0 1px $primaryColor;
+                text-transform: uppercase;
+                display: inline-block;
+                font-weight: 600;
+                margin-top: 10px;
+                &:hover {
+                    border: 1px solid darken($primaryColor, 10%);
+                }
             }
         }
         .cart-product-info {
@@ -741,12 +772,245 @@
             hr {
                 background-color: lightgrey;
             }
+            p:first-child span {
+                font-size: .8em;
+            }
             p span {
                 float: right;
             }
             p.grand-total {
                 font-size: 1.5em;
                 text-transform: uppercase;
+            }
+        }
+    }
+
+    #checkout {
+        header {
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .delivery-time-info {
+            padding: 10px;
+            font-size: .9em;
+            background-color: lighten(blue, 45%);
+            border-top: 3px solid darken(blue, 20%);
+            i {
+                color: darken(blue, 20%);
+            }
+            margin-bottom: 10px;
+        }
+        .checkout-shipping-info {
+            @extend .delivery-time-info;
+            background-color: lighten(aqua, 45%);
+            border-top: 3px solid darken(aqua, 20%);
+            i {
+                color: darken(aqua, 20%);
+            }
+        }
+        .billing-and-order-details {
+            @extend .row;
+            margin-bottom: 10px;
+            .no-item-error {
+                padding: 10px;
+                font-size: .9em;
+                display: none;
+                background-color: lighten(red, 45%);
+                border-top: 3px solid darken(red, 20%);
+                margin-bottom: 10px;
+                i {
+                    color: darken(red, 20%);
+                }
+            }
+            .billing-details {
+                @extend .col-sm-12;
+                @extend .col-md-6;
+                @extend .col-lg-6;
+                font-size: .8em;
+                label {
+                    display: block;
+                }
+                select option {
+                    color: lighten($primaryColor, 30%);
+                    &:hover {
+                        background-color: red!important;
+                    }
+                }
+                input, select {
+                    @include boxSizing;
+                    width: 100%;
+                    border-radius: 3px;
+                    height: 30px;
+                    outline: none;
+                    padding: 1px 4px;
+                    border: none;
+                    box-shadow: 0 0 3px lighten($primaryColor, 20%);
+                    margin: 15px 0;
+                }
+                input[name="firstname"], input[name="phonenumber"] {
+                    width: 95%;
+                }
+                span {
+                    color: red;
+                }
+                fieldset {
+                    border: none;
+                    border-top: 1px solid $primaryColor;
+                    legend {
+                        text-align: center;
+                        font-weight: 700;
+                        letter-spacing: .5em;
+                        font-size: 1.3em;
+                    }
+                }
+                .row {
+                    @include boxSizing;
+                    padding: 10px;
+                    // .inputfield {
+                    //     margin: 20px o;
+                    // }
+                }
+            }
+            .order-details {
+                @extend .col-sm-12;
+                @extend .col-md-6;
+                @extend .col-lg-6;
+                padding: 0 10px;
+                fieldset {
+                    border: none;
+                    border-top: 1px solid $primaryColor;
+                    background-color: lighten($primaryColor, 70%);
+                    legend {
+                        text-align: center;
+                        font-weight: 700;
+                        letter-spacing: .5em;
+                        font-size: 1.1em;
+                    }
+                    button {
+                        display: block;
+                        text-align: center;
+                        @include boxSizing;
+                        padding: 15px 10px;
+                        background-color: darken($primaryColor, 20%);
+                        text-decoration: none;
+                        color: #fff;
+                        margin-top: 10px;
+                        text-transform: uppercase;
+                        font-weight: 800;
+                        font-size: .9em;
+                        width: 100%;
+                        letter-spacing: .3em;
+                        border: none;
+                        outline: none;
+                        &:hover {
+                            background-color: darken($primaryColor, 10%);
+                            box-shadow: 0 5px 3px -5px $primaryColor;
+                        }  
+                    }
+                }
+                .order-details-box {
+                    @extend .row;
+                    @include boxSizing;
+                    padding: 10px;
+                    input:checked {
+                        background-color: #fff;
+                        color: green;
+                    }
+                    table {
+                        @extend .col-sm-12;
+                        @extend .col-md-12;
+                        @extend .col-lg-12;
+                        border: 1px solid #000;
+                        text-align: center;
+                        tbody tr.t {
+                            font-size: .8em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // /shop route
+    #all-page {
+        padding-top: 10px;
+        @include mobile {
+            margin-top: 80px;
+        }
+        margin-bottom: 10px;
+        .all-page-body-container {
+            h2 {
+                text-decoration: underline;
+                letter-spacing: .3em;
+            }
+            .no-item {
+                margin: 30px 0 30% 0;
+                padding: 10px;
+                font-size: .9em;
+                display: none;
+                background-color: lighten(aqua, 45%);
+                border-top: 3px solid darken(aqua, 20%);
+                i {
+                    color: darken(aqua, 20%);
+                }
+            }
+            .all-page-body {
+                @extend .row;
+                margin-top: 10px;
+                .select-size-and-color {
+                    @extend .col-sm-12;
+                    @extend .col-md-3;
+                    @extend .col-lg-3;
+                    padding: 5px;
+                    select {
+                        margin: 10px 0;
+                        width: 100%;
+                        height: 30px;
+                        border: 3px;
+                        border: none;
+                        box-shadow: 0 0 3px grey;
+                        color: lighten($primaryColor, 30%);
+                        font-size: .8em;
+                        padding: 3px;
+                        text-transform: uppercase;
+                    }
+                }
+                .display-area {
+                    @extend .col-sm-12;
+                    @extend .col-md-9;
+                    @extend .col-lg-9;
+                    .display {
+                        @extend .row;
+                        @include boxSizing;
+                        padding: 20px;
+                        a {
+                            color: inherit;
+                        }
+                        .item-box {
+                            @extend .col-sm-12;
+                            @extend .col-md-3;
+                            @extend .col-lg-3;
+                            margin: 15px 0;
+                        }
+                        .item-box .image img{
+                            @include tablet {
+                                width: 100%;
+                                height: 300px;
+                            }
+                            @include desktop {
+                                width: 100%;
+                                height: 300px;
+                            }
+                            @include mobile {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        .item-box .info {
+                            @extend .text-center;
+                        }
+                    }
+                }
             }
         }
     }

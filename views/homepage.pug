@@ -7,7 +7,7 @@ include head.pug
         .search-icon
             i.fa.fa-search
     #mobile-search.row
-        form(action="/", method="get", role="search")
+        form(action="/shop", method="get", role="search")
             input(type="search", name="s", placeholder="Search", autocomplete, required)
     #menu-items
         ul
@@ -138,7 +138,7 @@ section#homepage
                 h2 Fashion
                 p Find the best of fashion here
             #landing-page-form
-                form(action="/", method="get", role="search")
+                form(action="/shop", method="get", role="search")
                     input(type="search", name="s", required, placeholder="Search for elegance")
     #home-display.container
         include cart.pug

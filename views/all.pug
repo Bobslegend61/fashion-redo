@@ -1,5 +1,50 @@
-extends layout
-block content
-    #all-page
-        p all page
-    
+include head.pug
+#layout-page.all-page
+    include layoutnav.pug
+include navbar.pug
+#all-page.container
+    .breadcrumb(style=product.length > 0 ? "display: block;" : "display: none;")
+        ul
+            li
+                a(href="/") Home
+            li
+                a(href=`/shop`,style=searchTerm ? "display: block;" : "display: none;") Shop
+                p(style=!searchTerm ? "display: block;" : "display: none") Shop
+            li
+                p(style=searchTerm ? "display: block;" : "display: none;") #{searchTerm}
+    include cart.pug
+    .all-page-body-container
+        header
+            h2.text-center #{pageTitle.toUpperCase()}
+        .no-item(style=product.length == 0 ? "display: block;" : "display: none;")
+            p   
+                i.fa.fa-info
+                span &nbsp;No product avaliable for #{searchTerm}
+        .all-page-body(style=product.length > 0 ? "display: block;" : "display: none;")
+                .select-size-and-color
+                    .form-field
+                        label Color
+                        select(name="categoryColor")
+                            each item in product
+                                each color in item.color
+                                    option(value=color) #{color}
+                    .form-field
+                        label Size
+                        select(name="categorySize")
+                           each item in product
+                                each size in item.sizes
+                                    option(value=size) #{size}
+                .display-area
+                   .display
+                        each item in product
+                            a(href="/product/"+item.brandName)
+                                .item-box
+                                    .image
+                                        img(src=item.displayPixLink, alt=item.brandName)
+                                    .info
+                                        p 
+                                            strong #{item.brandName}
+
+
+include footer.pug
+include scripts.pug

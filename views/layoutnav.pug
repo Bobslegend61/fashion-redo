@@ -8,8 +8,8 @@
         .bars
             i.fa.fa-bars
     #mobile-search.row
-        form(action="/", method="get", role="search")
-            input(type="search", name="s", placeholder="Search", autocomplete, required)
+        form(action="/shop", method="get", role="search")
+            input(type="search", name="s", placeholder="Search",value=searchTerm ? searchTerm : "", autocomplete, required)
     #menu-items
         ul
             li.nav-item
@@ -91,11 +91,11 @@
                             li
                                 a.items(href="#") Flats
                             li
-                                a.items(href="#") High Heels
+                                a.items(href="/product-category/shoes?productname=high") High Heels
                             li
-                                a.items(href="#") Sandals
+                                a.items(href="/product-category/shoes?productname=sandals") Sandals
                             li
-                                a.items(href="#") Trainers
+                                a.items(href="/product-category/shoes?productname=trainers") Trainers
             li.nav-item
                 p
                     a(href="#") accessories
@@ -105,23 +105,23 @@
                     .collaspe
                         ul
                             li
-                                a.items(href="#") New This Week
+                                a.items(href="/product-category/accessories?productname=new-this-week") New This Week
                             li
-                                a.items(href="#") Bestsellers
+                                a.items(href="/product-category/accessories?productname=bestsellers") Bestsellers
                             li
-                                a.items(href="#") Our Exclusives
+                                a.items(href="/product-category/accessories?productname=our-exclusives") Our Exclusives
                     p
                         a.sub-topic(href="#") Shop by type
                     .collaspe
                         ul
                             li
-                                a.items(href="#") Belt
+                                a.items(href="/product-category/accessories?productname=belt") Belt
                             li
-                                a.items(href="#") Keyrings
+                                a.items(href="/product-category/accessories?productname=keyrings") Keyrings
                             li
-                                a.items(href="#") Earings
+                                a.items(href="/product-category/accessories?productname=earings") Earings
                             li
-                                a.items(href="#") Broochers
+                                a.items(href="/product-category/accessories?productname=broochers") Broochers
             li.nav-item
                 p
                     a(href="#") blog

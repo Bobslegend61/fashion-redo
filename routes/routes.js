@@ -1,5 +1,8 @@
 // CORE PACKGES
 const express = require("express");
+const Geonames = require("geonames.js");
+let geonames = new Geonames({username:"alabi", lan: "en", encoding: "JSON"});
+
 
 // DATA
 const data = [
@@ -121,15 +124,24 @@ const data = [
         price: 750
     }
 ]
+let countries = ["Afghanistan", "USA", "Italy", "Nigeria", "Ghana", "Algeria", "Zambia", "Kenya", "Russia"];
 
 // DEFINE ROUTER
 const router = express.Router();
+
+router.get("/country", (req, res) => {
+    geonames.countryInfo({}) 
+    .then(function(countries){
+    //   return geonames.children({geonameId: countries.geonames[0].geonameId})
+    res.json(countries);
+    })
+})
 
 // DEFINE ROUTES --- ****START*****
     // GET ROUTES --- *****START***
         // home route
         router.get("/", (req, res) => {
-            res.render("homepage", {pageTitle: "Homepage", img: "img/suit_businessman.jpeg", data: data});
+            res.render("homepage", {pageTitle: "Ladies Fashion and Accessories - Shop Online at Debras Grace ★", img: "img/suit_businessman.jpeg", data: data});
         });
 
         // about route
@@ -154,6 +166,19 @@ const router = express.Router();
         router.get("/contact-form", (req, res) => {
             res.render("contact", {pageTitle: "Contact Us"})
         });
+
+        // shop
+        router.get("/shop", (req, res) => {
+            if(req.query.s) {
+                let searchTerm = req.query.s;
+                let product = data.filter(value => {
+                    return value.brandName.indexOf(searchTerm) != -1 || value.category.indexOf(searchTerm) != -1 || value.type.indexOf(searchTerm) != -1
+                })
+                res.render("all", {pageTitle: "Shop all products", searchTerm, product: product});
+            }else {
+                res.render("all", {pageTitle: "Shop all products", product: data});
+            }
+        })
        
         // /product/name
         router.get("/product/:name", (req, res) => {
@@ -184,6 +209,12 @@ const router = express.Router();
         // cart
         router.get("/cart", (req, res) => {
             res.render("cart-display", {pageTitle: "Shopping Cart"});
+        })
+
+        // checkout
+        router.get("/checkout", (req, res) => {
+            countries.sort();
+            res.render("checkout", {pageTitle: "Checkout Page", countries});
         })
     // GET ROUTES --- ****END****
 

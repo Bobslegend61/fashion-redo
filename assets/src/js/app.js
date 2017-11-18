@@ -243,9 +243,16 @@ $(document).ready(function() {
     // /cart ROUTE
     function cartRoute() {
         if(window.location.pathname === "/cart") {
-            if((localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart")).length < 1 && typeof JSON.parse(localStorage.getItem("cart")) === "object") || !localStorage.getItem("cart")) {
+            if(!localStorage.getItem("cart") || JSON.parse(localStorage.getItem("cart")).length < 1 || typeof JSON.parse(localStorage.getItem("cart")) != "object") {
                 $("#cart-display .cart-body").html(`<div class='no-item-error'>
                                                     <p><i class="fa fa-exclamation-circle"></i><span>&nbsp;You've not added any item to your shopping cart</span></p>
+                                                    </div>
+                                                    <div class='delivery-time-info'>
+                                                    <p><i class="fa fa-calendar-o"></i><span>&nbsp;Checkout is not available whilst your cart is empty.</span></p>
+                                                    </div>
+                                                    <div class="return-to-shop">
+                                                        <p>Your cart is currently empty</p>
+                                                        <a href="/shop">Return to shop</a>
                                                     </div>`)
             }else {
                 let cartItems = JSON.parse(localStorage.getItem("cart"));
@@ -289,10 +296,10 @@ $(document).ready(function() {
     cartRoute();
 
     // check if remove on /cart page
-    $(document).on("click", "#cart-display .cart-body ,cart-product-info", (e) => {
-        let color = e.target.parentElement.parentElement.firstElementChild.children[0].innerText;
-        let size = e.target.parentElement.parentElement.firstElementChild.children[1].innerText;
-        let brandName = e.target.parentElement.parentElement.parentElement.firstElementChild.innerText;
+    $(document).on("click", "#cart-display .cart-body .cart-product-info button", (e) => {
+        let color = e.target.parentElement.parentElement.firstElementChild.children[0].innerText.trim();
+        let size = e.target.parentElement.parentElement.firstElementChild.children[1].innerText.trim();
+        let brandName = e.target.parentElement.parentElement.parentElement.firstElementChild.innerText.trim();
         let listItem = JSON.parse(localStorage.getItem("cart"));
         for(let i =0; i < listItem.length; i++) {
             if(listItem[i].brandName.toLowerCase() == brandName.toLowerCase() && listItem[i].color.toLowerCase() == color.toLowerCase() && listItem[i].size.toLowerCase() == size.toLowerCase()) {
@@ -303,5 +310,105 @@ $(document).ready(function() {
         cartRoute();
     }) 
 
+    // /checkout ROUTE
+    if(window.location.pathname === "/checkout") {
+        if(!localStorage.getItem("cart") || JSON.parse(localStorage.getItem("cart")).length < 1 || typeof JSON.parse(localStorage.getItem("cart")) != "object") {
+            window.location = "/cart";
+        }else {
+            let cartItems = JSON.parse(localStorage.getItem("cart"));
+            let orderTotal = 0
+            cartItems.forEach((item) => {
+                orderTotal += Number(item.quantity) * Number(item.price)
+                $("#checkout .order-details table tbody").prepend(`<tr class="t">
+                                                                    <td>${item.brandName.toUpperCase()} &times; ${item.quantity}</td>
+                                                                    <td>&#x20A6;${Number(item.quantity) * Number(item.price)}</td>
+                                                                   </tr>`)
+            });
+            $("#checkout .order-details table tbody").append(`<tr>
+            <td><strong>ORDER TOTAL</strong></td>
+            <td><strong>&#x20A6;${orderTotal}</strong></td>
+           </tr>`)
+        }
+    }
+
+    // place order
+    $(document).on("click","#checkout .billing-and-order-details button", () => {
+        let userInfoPassedSecurityCheck = true;
+        let userInfo = {
+            firstname: $("#checkout .billing-and-order-details input[name='firstname']").val(),
+            lastname: $("#checkout .billing-and-order-details input[name='lastname']").val(),
+            email: $("#checkout .billing-and-order-details input[name='email']").val(),
+            phonenumber: $("#checkout .billing-and-order-details input[name='phonenumber']").val(),
+            streetaddress: $("#checkout .billing-and-order-details input[name='streetaddress']").val(),
+            town_city: $("#checkout .billing-and-order-details input[name='town_city']").val(),
+            companyname: $("#checkout .billing-and-order-details input[name='companyname']").val(),
+            postal: $("#checkout .billing-and-order-details input[name='postal']").val(),
+            country: $("#checkout .billing-and-order-details select[name='country']").val(),
+            state: $("#checkout .billing-and-order-details select[name='state']").val(),
+            terms: document.getElementById("terms").checked 
+        }
+        
+        // check emptiness of field
+        Object.keys(userInfo).forEach(key => {
+            if(key == "terms") {
+                if(userInfo[key] == false) {
+                    $(`#checkout .billing-and-order-details .order-details .no-item-error span`).html("&nbsp; Ooops!!! You must accept our <a href='/terms-and-condition'>Terms & Conditions</a>");
+                    $(`#checkout .billing-and-order-details .order-details .no-item-error`).css("display","block");
+                    userInfoPassedSecurityCheck = false;
+                }else {
+                    $(`#checkout .billing-and-order-details .order-details .no-item-error`).css("display","none");
+                }
+            }else {
+                if(!userInfo[key] || userInfo[key].trim() == "") {
+                    $(`#checkout .billing-and-order-details input[name=${key}] + .no-item-error span`).html("&nbsp; Field is required");
+                    $(`#checkout .billing-and-order-details input[name=${key}] + .no-item-error`).css("display","block");
+                    userInfoPassedSecurityCheck = false;
+                }else {
+                    $(`#checkout .billing-and-order-details input[name=${key}] + .no-item-error`).css("display","none");
+                }
+            }
+        })
+
+        // validate email
+        if(userInfo.email) {
+            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if(!re.test(userInfo.email)) {
+                $(`#checkout .billing-and-order-details input[type="email"] + .no-item-error span`).html("&nbsp; Invalid Email Address");
+                $(`#checkout .billing-and-order-details input[type=email] + .no-item-error`).css("display","block");
+                userInfoPassedSecurityCheck = false;
+            }
+        }
+
+        if(userInfoPassedSecurityCheck) {
+            let orderItems = JSON.parse(localStorage.getItem("cart"));
+            let randomText = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"+userInfo.firstname.toUpperCase()+userInfo.lastname.toUpperCase()+userInfo.phonenumber;
+            let orderId = "";
+            for(let i = 0; i <= 6; i++) {
+                let randomNumber = Math.ceil(Math.random() * (randomText.length - 1));
+                orderId += randomText[randomNumber];
+            }
+            let userCompleteInfo = {
+                userInfo,
+                orderId,
+                orderItems
+            }
+            console.log(userCompleteInfo);
+            window.location = "/";
+        }
+    })
+
+    // /shop and search ROUTE
+    if(window.location.pathname == "/shop") {
+        if(window.location.search.trim() != "" && window.location.search.indexOf("?s=") != -1) {
+            $("#layout-page.all-page #layout-nav #mobile-search").css("display", "block");
+        }
+    }
+
+    // listen for search form submit
+    $("#layout-nav #mobile-search form, #mobile-nav #mobile-search form, #desktop-nav #desktop-search form, #landing-page-form form").on("submit", (e) => {
+        if(e.target.children[0].value.trim() == "") {
+            e.preventDefault();
+        }
+    })
     /////////////////// WEBSITE LOGIC ----- END ------- ////////////////
 });
